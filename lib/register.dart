@@ -1,14 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/login.dart';
 
-class Register extends StatefulWidget {
-  const Register({super.key});
+class RegistrationScreen extends StatefulWidget {
+  
 
   @override
-  State<Register> createState() => _RegisterState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _RegisterState extends State<Register> {
+
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final TextEditingController _UsernameController = TextEditingController();
+  final TextEditingController _LocationController = TextEditingController();
+  final TextEditingController _Telephone = TextEditingController();
+  final TextEditingController _PasswordController = TextEditingController();
+  final TextEditingController _ConfirmPassword = TextEditingController();
+
+ 
+  void _register(){
+    String username = _UsernameController.text;
+    String location = _LocationController.text;
+    String telephone = _Telephone.text;
+    String password = _PasswordController.text;
+    String confirmPassword = _ConfirmPassword.text;
+
+    if(password != confirmPassword){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Passwords do not match')),
+      );
+      return ;
+    }
+    if(username == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Empty Username Field')),
+      );
+      return;
+    }
+      if(password == ''){
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Empty Password Field')),
+      );
+      return;
+      }
+    if(location == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Empty Location Field')),
+      );
+      return;
+    }
+    if(telephone == ''){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Empty Telephone Field')),
+      );
+      return;
+    }
+
+    // back-end 
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Usuário $username registrado com sucesso!')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,14 +97,66 @@ class _RegisterState extends State<Register> {
        const SizedBox(
           height: 40,
         ),
-        inputStyle("Username", "test@gmail.com"),
-        inputStyle("Password", "Abc1234"),
-        inputStyle("Confirm Password", "Abc1234"),
-        inputStyle("Location", "brazil"),
-        inputStyle("Identification Number", "1000"),
+        TextFormField( 
+          controller: _UsernameController,
+          decoration: const InputDecoration(
+          labelText: 'Username',
+          hintText: 'text@gmail.com',
+          border: OutlineInputBorder(),
+          
+          ), 
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextField(
+          controller: _PasswordController,
+          obscureText: true,
+          decoration: const InputDecoration(
+            labelText: 'Password',
+            hintText: 'Abc1234',
+            border: OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextField(
+          controller: _ConfirmPassword,
+          obscureText: true,
+          decoration: const InputDecoration(
+            labelText: 'Confirm Password',
+            hintText: 'Abc1234',
+            border: OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextField(
+          controller: _LocationController,
+          decoration: const InputDecoration(
+            labelText: 'Location',
+            hintText: 'Brazil',
+            border: OutlineInputBorder(),
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        TextField(
+          controller: _Telephone,
+          decoration: const InputDecoration(
+            labelText: 'Telephone',
+            hintText: '(11)912345678',
+            border: OutlineInputBorder(),
+          ),
+        ),
+      
         const SizedBox(
           height: 30,
         ),
+
         Container(
           height: 60,
           width: 300,
@@ -59,13 +164,14 @@ class _RegisterState extends State<Register> {
             color: Colors.tealAccent,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: TextButton(onPressed: () {},
+          child: TextButton(onPressed: _register ,
            child: const Text(
             "Register",
             style: TextStyle(fontSize: 20,color: Colors.grey),
             ),
           ),
         ),
+        
         const SizedBox(
           height: 10,
         ),

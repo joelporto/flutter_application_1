@@ -10,6 +10,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final TextEditingController _UsernameController = TextEditingController();
+  final TextEditingController _PasswordController = TextEditingController();
+
+  void _register(){
+    String username = _UsernameController.text;
+    String password = _PasswordController.text;
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +45,33 @@ class _LoginState extends State<Login> {
         const SizedBox(
           height: 60,
         ),
-        inputStyle("Username", "Enter your username"),
+        TextFormField(
+          controller: _UsernameController,
+          validator: (username) {
+            if(username == ''){
+              ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Empty Location Field')),
+            );
+            }
+            return null;
+          } ,
+          decoration: const InputDecoration(
+            labelText: 'Username',
+            hintText: 'Enter your Username',
+            border: OutlineInputBorder()
+          ),
+        ),
          const SizedBox(
           height: 20,
         ),
-        inputStyle("Password ", "Enter your Password"),
+        TextField(
+          controller: _PasswordController,
+          decoration: const InputDecoration(
+            labelText: 'Password',
+            hintText: 'Enter your Password',
+            border: OutlineInputBorder()
+          ),
+        ),
         const SizedBox(
           height: 60,
         ),
@@ -51,13 +82,14 @@ class _LoginState extends State<Login> {
             color: Colors.tealAccent,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: TextButton(onPressed: () {},
+          child: TextButton(onPressed: _register,
            child: const Text(
             "Login",
             style: TextStyle(fontSize: 20,color: Colors.grey),
             ),
           ),
         ),
+
         const SizedBox(
           height: 10,
           ),

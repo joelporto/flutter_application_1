@@ -12,7 +12,7 @@ void main(){
       routes: {
         "/":(context) => const Splash(),
         '/login':(context) => const Login(),
-        '/register':(context) => const Register()
+        '/register':(context) => RegistrationScreen()
       },
     )
   );
